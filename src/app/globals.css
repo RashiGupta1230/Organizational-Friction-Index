@@ -1,49 +1,175 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
+/* ============================================================
+   Org X-Ray — Upstream Design System
+   ============================================================ */
+
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --primary: #F9FAFB;
+    --surface: #FFFFFF;
+    --surface2: #F3F4F6;
+    --border: #E5E7EB;
+    --text: #111827;
+    --muted: #6B7280;
+
+    --sidebar-bg: #0F766E;
+    --sidebar-active: #0D9488;
+    --sidebar-hover: #115E59;
+
+    --accent: #0f766e;
+    --accent-light: #ccfbf1;
+    --accent-hover: #115e59;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+  }
+
+  html, body {
+    @apply bg-[#FAFAFA] text-[#0f172a];
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  /* Focus rings */
+  button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    @apply outline-2 outline-offset-2 outline-[#0D9488];
   }
 }
 
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@layer components {
+  /* ---- Cards ---- */
+  .card {
+    @apply bg-white border border-[#E2E8F0] rounded-2xl p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] transition-shadow duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)];
   }
+  .card-sm {
+    @apply bg-white border border-[#E2E8F0] rounded-xl p-4 shadow-[0_2px_8px_-3px_rgba(6,81,237,0.05)];
+  }
+
+  /* ---- Buttons ---- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl
+           font-bold text-sm transition-all duration-200 cursor-pointer border
+           border-[#E2E8F0] bg-white text-[#0f172a] shadow-sm hover:shadow
+           hover:-translate-y-[1px] hover:border-[#CBD5E1] active:translate-y-0 active:shadow-sm
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none;
+  }
+  .btn-accent {
+    @apply bg-[#0f766e] text-white border-transparent shadow-[0_4px_14px_0_rgba(15,118,110,0.39)] 
+           hover:bg-[#115e59] hover:shadow-[0_6px_20px_rgba(15,118,110,0.23)];
+  }
+  .btn-success {
+    @apply bg-[#10B981] text-white border-transparent hover:bg-[#059669];
+  }
+  .btn-danger {
+    @apply bg-[#EF4444] text-white border-transparent hover:bg-[#DC2626];
+  }
+  .btn-warning {
+    @apply bg-[#FEF3C7] text-[#92400E] border-[#F59E0B] hover:bg-[#FDE68A];
+  }
+  .btn-ghost {
+    @apply border-transparent bg-transparent hover:bg-[#F3F4F6];
+  }
+
+  /* ---- Form Inputs ---- */
+  .input {
+    @apply w-full px-4 py-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-sm
+           text-[#0f172a] placeholder:text-[#94A3B8] font-medium
+           focus:outline-none focus:ring-2 focus:ring-[#0f766e]/20 focus:border-[#0f766e] focus:bg-white
+           transition-all duration-200;
+  }
+  .select-input {
+    @apply input appearance-none cursor-pointer;
+  }
+  .textarea-input {
+    @apply input resize-none;
+  }
+
+  /* ---- Status Badges ---- */
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold;
+  }
+  .badge-success { @apply bg-[#D1FAE5] text-[#065F46]; }
+  .badge-warning { @apply bg-[#FEF3C7] text-[#92400E]; }
+  .badge-danger  { @apply bg-[#FEE2E2] text-[#991B1B]; }
+  .badge-info    { @apply bg-[#DBEAFE] text-[#1E40AF]; }
+  .badge-muted   { @apply bg-[#F3F4F6] text-[#6B7280]; }
+  .badge-accent  { @apply bg-[#CCFBF1] text-[#0F766E]; }
+
+  /* ---- KPI Stat Card ---- */
+  .stat-card {
+    @apply card flex flex-col gap-1;
+  }
+  .stat-label {
+    @apply text-xs font-medium text-[#6B7280] uppercase tracking-wide;
+  }
+  .stat-value {
+    @apply text-3xl font-bold text-[#111827];
+  }
+  .stat-sub {
+    @apply text-xs text-[#6B7280];
+  }
+
+  /* ---- Table ---- */
+  .data-table {
+    @apply w-full text-sm text-left;
+  }
+  .data-table thead {
+    @apply bg-[#F9FAFB] border-b border-[#E5E7EB];
+  }
+  .data-table th {
+    @apply px-4 py-3 font-semibold text-[#6B7280] text-xs uppercase tracking-wide;
+  }
+  .data-table td {
+    @apply px-4 py-3 border-b border-[#F3F4F6];
+  }
+  .data-table tbody tr {
+    @apply hover:bg-[#F9FAFB] transition-colors;
+  }
+
+  /* ---- Kanban Column ---- */
+  .kanban-col {
+    @apply flex-1 min-w-[260px] bg-[#F3F4F6] rounded-xl p-4 flex flex-col gap-3;
+  }
+  .kanban-col-header {
+    @apply flex items-center justify-between mb-2 font-semibold text-sm text-[#374151];
+  }
+  .kanban-count {
+    @apply bg-white border border-[#E5E7EB] text-[#6B7280] text-xs px-2 py-0.5 rounded-full font-mono;
+  }
+  .kanban-card {
+    @apply bg-white border border-[#E5E7EB] rounded-lg p-3 shadow-sm cursor-pointer
+           hover:shadow-md hover:border-[#0D9488] transition-all;
+  }
+
+  /* ---- Page Heading ---- */
+  .page-title {
+    @apply text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#0f172a] to-[#334155] bg-clip-text text-transparent;
+  }
+  .page-sub {
+    @apply text-sm text-[#64748B] mt-1 font-medium;
+  }
+
+  /* ---- Sidebar nav item ---- */
+  .nav-item {
+    @apply w-full flex justify-center py-3 border-l-2 border-transparent
+           transition-all duration-150 text-white/70 hover:bg-white/10 hover:text-white hover:border-white/40;
+  }
+  .nav-item-active {
+    @apply border-white bg-white/20 text-white;
+  }
+
+  /* ---- Terminal log ---- */
+  .log-terminal {
+    @apply bg-[#111827] rounded-xl p-4 font-mono text-xs overflow-auto flex flex-col gap-2;
+  }
+  .log-line-time   { @apply text-[#6B7280]; }
+  .log-line-source { @apply text-[#0D9488] font-semibold; }
+  .log-line-text   { @apply text-[#34D399]; }
 }

@@ -82,5 +82,4 @@ The database relies on a normalized PostgreSQL structure via Supabase. Refer to 
 
 Contributions are welcome! If you're an outsider looking to understand the system or want to report an issue, please feel free to open a GitHub Issue or submit a Pull Request.
 
----
 *Built for modern organizations to eliminate bottlenecks and optimize operational efficiency.*
